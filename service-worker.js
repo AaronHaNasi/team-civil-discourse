@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/team-civil/precache-manifest.10bb741cb0e3d36d318fd70732ee3e8e.js"
+  "/team-civil/precache-manifest.a786e8c970711ba2bd8bda2914fb80f5.js"
 );
 
 self.addEventListener('message', (event) => {
