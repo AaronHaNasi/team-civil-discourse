@@ -52,6 +52,8 @@ export function AboutUs() {
                 <p>
                     The CIS students during the Winter 2020 semester: Aaron Bager, Stephen Kiser, Nicholas Sheehan, Omar Tiba.
                 </p>
+                <img src="../Image/Team1.png" alt="Contributers" width="2198" height="1312"></img>
+                <img src="/Image/Team2.png" alt="Winter2020CIS team" width="1980" height="1302"></img>
                 </Container>
             </>
     )
