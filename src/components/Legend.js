@@ -48,6 +48,11 @@ const Legend = () => {
     ColorScheme.setColorDefault();
   };
 
+  const Orange = (e) => { //orange/brown colors!
+    setAnchorEl(null);
+    ColorScheme.setColorOrange();
+  };
+
   const Greyscale = (e) => {
     setAnchorEl(null);
     ColorScheme.setColorGreyscale();
@@ -63,13 +68,18 @@ const Legend = () => {
     ColorScheme.setColorTritan();
   };
 
+  const Protan = (e) => {
+    setAnchorEl(null);
+    ColorScheme.setColorProtan();
+  };
+
   return (
     <div className="info">
       <div className="legend">
-        <span className="title">Legend
+        <span className="title" > - Civil Discourse Rankings -
         <Button title="Theme Selection" aria-controls="fade-menu" aria-haspopup="true" onClick={handleClick}>
             <MoreVertIcon />
-          </Button>
+          </Button> 
           <Menu
             id="fade-menu"
             anchorEl={anchorEl}
@@ -77,18 +87,20 @@ const Legend = () => {
             open={open}
             onClose={handleClose}
             TransitionComponent={Fade}
-          >
+          > 
             <MenuItem onClick={Default}>Default</MenuItem>
+            <MenuItem onClick={Orange}>Orange</MenuItem>
             <MenuItem onClick={Greyscale}>Greyscale</MenuItem>
             <MenuItem onClick={Deutran}>Deutran</MenuItem>
             <MenuItem onClick={Tritan}>Tritan</MenuItem>
+            <MenuItem onClick={Protan}>Protan</MenuItem>
           </Menu>
         </span>
 
         {
           grades.map((value, i) => {
             return (
-              <>
+              <React.Fragment key={ value }>
                 {
                   i <= 5 ?
                     <>
@@ -101,11 +113,11 @@ const Legend = () => {
                       <>
                         <span>
                           <span className="i" id="na" style={{ backgroundColor: getColor(grades[7], ColorScheme.getActiveColorScheme()) }}></span>
-                          {"NA"}
+                          {"Not available"}
                         </span><br />
                       </> : ""
                 }
-              </>)
+              </React.Fragment>)
           })
         }
 

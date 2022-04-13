@@ -1,10 +1,13 @@
-import urllib3 # for making requests
-import sys # for command line arguments
-import config # local file that holds keys
+import urllib3  # for making requests
+import sys  # for command line arguments
+import config  # local file that holds keys
 from datetime import date
 import json
 import pymongo
 # import requests
+
+# api_key = 'd6c99d731fbd4f1d8c286ff567748ed2'
+
 
 def main():
     for country in sys.argv[1:]:
@@ -13,6 +16,7 @@ def main():
         # print(pop)
         insert_into_mongo(pop, country)
 
+
 def request(request_url):
     http = urllib3.PoolManager()
     api_request = http.request('GET', request_url)
@@ -20,9 +24,11 @@ def request(request_url):
     api_request_json = json.loads(api_request_return)
     return api_request_json
 
-def get_population(country:str):
+
+def get_population(country: str):
     year = str(date.today().year)
-    url = 'api.census.gov/data/timeseries/idb/1year?get=POP&GENC=' + country + '&YR=' + '2020' + '&AREA_KM2&SEX=0' + '&key=' + config.censusAPI_key
+    url = 'api.census.gov/data/timeseries/idb/1year?get=POP&GENC=' + \
+        country + '&YR=' + '2020' + '&AREA_KM2&SEX=0' + '&key=' + api_key
     data = request(url)
 
     # print(data)
@@ -37,13 +43,17 @@ def get_population(country:str):
     print(total_pop)
     return total_pop
 
-def insert_into_mongo(pop:int, country:str):
+
+def insert_into_mongo(pop: int, country: str):
     #config.MONGO_HOST = ''
     #config.MONGO_DB = ''
-    #config.MONGO_USER =
+    # config.MONGO_USER =
     mongo_client = pymongo.MongoClient(config.mongo_uri)
     print("connected to mongodb")
     database = mongo_client.map.countries
-    result = database.update_one({'two_digit': country}, {'$set': {'population': pop}})
+    result = database.update_one({'two_digit': country}, {
+                                 '$set': {'population': pop}})
     print(result.matched_count)
+
+
 main()

@@ -13,27 +13,30 @@ import { withStyles } from "@material-ui/core/styles";
 //import {Link} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-root:{
+root:{ //article boxes
     maxWidth: 345,
-    
-},
+    height: 500,
+    backgroundColor: "#edf8fb"
+}, //height added, evened out box sizes
 
-media: {
-    height: 0,
+media: { //photos
+    height: 100, //height change added
     paddingTop: '75.00%',
+    backgroundColor: "#edf8fb"
 },
-
-actionArea: {
-    "&:hover $focusHighlight": {
-      opacity: 0.5
-    }
-  },
-  focusHighlight: {}
+// actionArea: {
+//     "&:hover $focusHighlight": {
+//       //opacity: 0.5,
+//     } 
+//   },
+focusHighlight: {
+    opacity: 1.0,
+} //added opacity
 
 }))
 
 function ArticleCard({title, description, date, articleUrl, author, imageUrl}) {
-
+    
     const classes = useStyles();
 
     return(
@@ -48,8 +51,11 @@ function ArticleCard({title, description, date, articleUrl, author, imageUrl}) {
                     image={imageUrl}
                     // title="image"
                     />
-                    <CardContent>
-                    <Typography gutterBottom variant="h5" color="textPrimary" component="h2">
+                    <CardContent >
+                    <Typography style= {{ fontFamily: "Verdana", 
+                        fontStyle: "bold", 
+                        fontSize: "20px"}} //font changes added
+                            gutterBottom variant="h5" color="textPrimary" component="h2">
                         {title}
                     </Typography>
 

@@ -3,31 +3,35 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    root: { /*basic information for each aspect of country data box*/ 
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        padding: theme.spacing(3)
-    },
-    title: {
+        padding: theme.spacing(1),
+        fontFamily: "Courier ",
+        height: 200,
+        backgroundColor: "#bfd3e6"
+    }, //height added, evened out box sizes
+    title: { /*info titles*/
         fontSize: theme.spacing(5),
         textAlign: "center",
-        fontFamily: "Roboto",
-  
-        fontWeight: 300
-    },
-    detail: {
+        fontFamily: "Georgia",
+        fontWeight: 300,
+        backgroundColor: "#bfd3e6"
+    }, /*font change from Roboto */
+    detail: { 
         fontSize: theme.spacing(2),
-        textAlign: "center"
+        textAlign: "center",
+        backgroundColor: "#bfd3e6"
     },
-    subDetail: {
+    subDetail: { //"As of ..."
         fontSize: theme.spacing(2),
-        textAlign: "center"
+        textAlign: "center",
+        backgroundColor: "#bfd3e6"
     },
-}))
+})) 
 
 function InfoCard({title, detail, subDetail}) {
-
     const classes = useStyles();
 
     return(

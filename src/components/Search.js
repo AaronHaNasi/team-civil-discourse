@@ -16,9 +16,9 @@ function Search() {
     async function getCountryByName(countryName) {
         try {
             // Create the request URLs
-	    // DEV 
-            // let attributesRequestURL = 'https://h5kxmgz3lc.execute-api.us-east-1.amazonaws.com/development/CivilDiscourseMap-GetAttributesByName?CountryName=' + countryName;
-            // let articlesRequestURL = 'https://h5kxmgz3lc.execute-api.us-east-1.amazonaws.com/development/CivilDiscourseMap-GetNewsByName?CountryName=' + countryName;
+	    //DEV 
+             //let attributesRequestURL = 'https://3iixzbu86i.execute-api.us-east-1.amazonaws.com/Dev-CivilDiscourseMap-GetAttributesByName?CountryName=' + countryName;
+             //let articlesRequestURL = 'https://3iixzbu86i.execute-api.us-east-1.amazonaws.com/Dev-CivilDiscourseMap-GetNewsByName?CountryName=' + countryName;
 
             // PROD 
 	    let attributesRequestURL = 'https://3iixzbu86i.execute-api.us-east-1.amazonaws.com/Prod-CivilDiscourseMap-GetAttributesByName?CountryName=' + countryName
@@ -40,6 +40,8 @@ function Search() {
 
             return
         } catch (error) {
+            setLoading(false);
+            alert(`Sorry, but detailed metrics for ${term} are not currently available.`);
             console.log(error);
             console.log(error.response);
         }
@@ -81,7 +83,11 @@ function Search() {
                                 censorship_ranking={Math.trunc(results['CensorshipRank'])}
                                 cd_rating={Math.trunc(results['DiscourseRating'])}
                                 cd_ranking={Math.trunc(results['DiscourseRanking'])}
-		    		millenium_dec_ratified={results['MilleniumDeclarationYear'] === 0 ? 'N':'Y'}
+                                millenium_dec_ratified={results['MilleniumDeclarationYear'] === 0 ? "Not signed" : "Signed"}
+                                Gdi_Value={Math.trunc(results['GdiValue'])}
+                                Gdi_Link={results['GdiLink']}
+                                Lit_Rate={Math.trunc(results['LitRate'])}
+                                Lit_Year={Math.trunc(results['LitYear'])}
 
                             />
                             :
@@ -102,7 +108,12 @@ function Search() {
                                 censorship_ranking={Math.trunc(results['CensorshipRank'])}
                                 cd_rating={Math.trunc(results['DiscourseRating'])}
                                 cd_ranking={Math.trunc(results['DiscourseRanking'])}
-		    		millenium_dec_ratified={results['MilleniumDeclarationYear'] === 0 ? 'N':'Y'}
+                                millenium_dec_ratified={results['MilleniumDeclarationYear'] === 0 ? "Not Signed" : "Signed"}
+                                Gdi_Value={Math.trunc(results['GdiValue'])}
+                                Gdi_Link={results['GdiLink']}
+                                Lit_Rate={Math.trunc(results['LitRate'])}
+                                Lit_Year={Math.trunc(results['LitYear'])}
+
 
                                 article_1_title={results['articles'][0]['title']}
                                 article_2_title={results['articles'][1]['title']}
@@ -126,7 +137,6 @@ function Search() {
                                 article_4_image_url={results['articles'][3]['urlToImage']}
                             />
             }
-
         </div>
     )
 }
@@ -136,3 +146,4 @@ function mapStateToProps({ country }) {
 }
 
 export default connect(mapStateToProps, actions)(Search)
+

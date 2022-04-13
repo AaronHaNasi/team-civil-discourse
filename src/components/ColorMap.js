@@ -4,7 +4,6 @@ import { MapContainer, TileLayer, GeoJSON, Pane } from 'react-leaflet';
 import { connect } from "react-redux"
 import * as actions from "../actions"
 import Legend from "./Legend"
-import ReactCountryFlag from "react-country-flag"
 import numeral from "numeral"
 import * as ColorScheme from "../ColorScheme.js"
 
@@ -64,7 +63,7 @@ const ColorMap = ({ allCountries }) => {
 
   function getCensorshipLevel(name) {
     var matchingCountries = getMatchingCountries(name);
-    return matchingCountries.map(filtered => Math.trunc(filtered["CensorshipLevel"]))
+    return 11 - (matchingCountries.map(filtered => Math.trunc(filtered["CensorshipLevel"])))
   }
 
   function geoJsonStyle(country) {
@@ -72,7 +71,7 @@ const ColorMap = ({ allCountries }) => {
       fillColor: getCountryColor(country.properties.name),
       weight: 1,
       opacity: .5,
-      color: 'white',
+      color: 'black',
       dashArray: '0',
       fillOpacity: 1
     };
@@ -87,15 +86,14 @@ const ColorMap = ({ allCountries }) => {
       minZoom={2.5}
       scrollWheelZoom={true}
       touchZoom
-
       placeholder
       zoomAnimation
-
-
+      maxBounds={[[-90, -180], [90, 180]]}
+      //worldCopyJump --> how I made it originally for wrapping, but didn't work correctly due to a known issue. 
     >
       <Pane
         name="labels"
-        style={{ zIndex: 650, pointerEvents: "none", opacity: .7 }}
+        style={{ zIndex: 650, pointerEvents: "none", opacity: .7, }}
       >
         <TileLayer
           url='https://stamen-tiles-{s}.a.ssl.fastly.net/toner-labels/{z}/{x}/{y}{r}.png'
@@ -104,9 +102,7 @@ const ColorMap = ({ allCountries }) => {
           noWrap
         />
       </Pane>
-
       <Legend />
-
       <GeoJSON
         data={world}
         ref={jsonReference}
@@ -120,19 +116,22 @@ const ColorMap = ({ allCountries }) => {
             '<p>Civil Discourse Ranking: ' + getRank(feature.properties.name) + '</p>' +
             '<p>Population: ' + numeral(getPopulation(feature.properties.name)).format('0,0') + '</p>' +
             '<p>Internet Access: ' + getInternetPercent(feature.properties.name) + '%</p>' +
-            '<p>Online Censorship Level: ' + getCensorshipLevel(feature.properties.name) + '</p>' +
-            '<a href="/search/' + feature.properties.name + '">View more</a>'
+              '<p>Online Censorship Level: ' + getCensorshipLevel(feature.properties.name) + '</p>' +
+            //'<p>GDI Average Rating: 79' + '</p>' +
+            '<a href="/search/' + feature.properties.name + '"> Click to View More</a>'
           );
 
           layer.on('mouseover', function () {
             this.setStyle({
-              'fillOpacity': 0.95
+              'fillOpacity': 0.5, 
+              color: 'white' //changes country outlines on mouseover
             });
           });
 
           layer.on('mouseout', function () {
             this.setStyle({
-              'fillOpacity': 1
+              'fillOpacity': 1,
+              color: 'black'
             });
           });
         }}

@@ -27,30 +27,30 @@ import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
 
-    passed: {
+    // passed: {
 
-        color: green[700],
-        borderColor: green[700]
+    //     color: green[700],
+    //     borderColor: green[700]
 
-    },
-    notPassed: {
+    // },
+    notPassed: { //page????
 
         color: red[700],
         borderColor: red[700]
     },
-    sectionHeader: {
-        marginTop: 20,
-        fontFamily: "Roboto",
-        fontSize: 20
-    },
-    info: {
-        marginRight: 5,
-        display: "inline-block"
-    }
+    // sectionHeader: {
+    //     marginTop: 20,
+    //     fontFamily: "Roboto",
+    //     fontSize: 20
+    // },
+    // info: {
+    //     marginRight: 5,
+    //     display: "inline-block"
+    // }
 
 }))
 
-function Country({ id, name, two_digit, three_digit, population, millenium_dec_ranking, millenium_dec_ratified, millenium_dec_year, rwb_rank, rwb_score, internet_access, internet_access_ranking, internet_access_year, censorship_level, censorship_ranking, cd_rating, cd_ranking, poverty_rate, article_array,
+function Country({ id, name, two_digit, three_digit, population, millenium_dec_ranking, millenium_dec_ratified, millenium_dec_year, rwb_rank, rwb_score, internet_access, internet_access_ranking, internet_access_year, censorship_level, censorship_ranking, cd_rating, cd_ranking, poverty_rate, article_array, Gdi_Value, Gdi_Link, Lit_Rate, Lit_Year,
     article_1_title, article_1_description, article_1_author, article_1_date, article_1_source, article_1_url,
     article_2_title, article_2_description, article_2_author, article_2_date, article_2_source, article_2_url,
     article_3_title, article_3_description, article_3_author, article_3_date, article_3_source, article_3_url,
@@ -61,69 +61,83 @@ function Country({ id, name, two_digit, three_digit, population, millenium_dec_r
 
     return (
         <Container>
-            <h1 style={{
+            <h1 style={{ //header
                 fontSize: "48px",
-                fontFamily: "Arial"
-            }}>
-                <center>
-                    {name}
+                fontFamily: "Courier", //font change from Ariel
+                backgroundColor: "#edf8fb"
+            }}> 
+                <center> 
+                   - {name} 
 
                     <ReactCountryFlag
                         countryCode={two_digit}
-                        style={{
+                        style={{ //dashes added
                             width: '1.2em',
                             height: '1.2em',
                             marginLeft: 10
-                        }}
-                        svg />
-                </center>
-            </h1>
-            <h2 >Civil Discourse Ranking: {cd_ranking} </h2>
-            <h2 >Population: {numeral(population).format('0,0')} </h2>
+                        }} 
+                        svg /> - 
+                </center> 
+            </h1> 
+            <h2  style ={{ //font changes
+                fontFamily: "Courier"
+            }}> Civil Discourse Ranking: {cd_ranking} </h2>
+            <h2  style ={{ //font changes
+                fontFamily: "Courier",
+                //backgroundColor: "grey"
+                }}> Population: {numeral(population).format('0,0')} </h2>
+            
 
 
-
-
-            <Grid container spacing={1}>
-
-
-                <Grid item xs={12} sm={3}>
-                    <InfoCard title={rwb_rank} detail="Reporters W/O Borders Ranking" subDetail="Out of 180 Countries" />
-                </Grid>
+            <Grid container spacing={1} justify="center">
 
                 <Grid item xs={12} sm={3}>
                     <InfoCard title={`${internet_access}%`} detail="Internet Access Percentage" subDetail={'As of ' + internet_access_year} />
                 </Grid>
 
                 <Grid item xs={12} sm={3}>
-                    <InfoCard title={censorship_level} detail="Online Censorship Level" subDetail="(Highest) 1 - 10 (Lowest)" />
+                    <InfoCard title={11 - censorship_level} detail="Online Censorship Level" subDetail="1 (Lowest) - 10 (Highest)" />
                 </Grid>
 
                 <Grid item xs={12} sm={3}>
                     <InfoCard title={millenium_dec_ratified}  detail="Millennium Declaration Signed" subDetail="As of 2000" />
                 </Grid>
-		
+
             </Grid>
 
             <br></br>
 
             <Grid container spacing={1} justify="center">
-
+                
+                {/* <Grid item xs={12} sm={3}>  
+                    <InfoCard title={Gdi_Value} detail="Average Global Disinformation Index Rating" subDetail=""/>
+                    <a href={'https://disinformationindex.org/research/'} ><Button style={{ fontFamily: "Courier New" //font changed
+                        }}> Visit GDI's site to see a country-level report... </Button></a> 
+                </Grid>  */} 
 
                 <Grid item xs={12} sm={3}>
-                    <InfoCard title="NA" detail="Freedom of Press"  subDetail="" />
+                    <InfoCard title={rwb_rank} detail="Reporters W/O Borders Ranking" subDetail="Out of 180 Countries" />
+                   
                 </Grid>
 
-                <Grid item xs={12} sm={3}>
-                    <InfoCard title="NA" detail="Freedom of Speech" subDetail="" />
-                </Grid>
-		
+             {  <Grid item xs={12} sm={3}>
+                    <InfoCard title={`${Lit_Rate}%`} detail= "Literacy Rate"  subDetail={'As of '+ Lit_Year} />
+                </Grid> 
+                }
             </Grid>
+            <center> 
+                        <a href={'https://rsf.org/en'} ><Button style={{ fontFamily: "Courier New" //font changed
+                            }}> Visit RSF's site for more information... </Button>
+                        </a>
+                </center>
 		
             <br></br>
 
             {/* <InfoCard title={cd_ranking} detail="Civil Discourse Ranking" subDetail="Out of 173 Countries"/>*/}
-            <h2>Recent Headlines</h2>
+            <h2 style= {{
+                fontSize: "30px", 
+                fontFamily: "Courier"
+                }}> - Recent Headlines - </h2>
 
             <br></br>
 
@@ -158,8 +172,27 @@ function Country({ id, name, two_digit, three_digit, population, millenium_dec_r
                         </Grid>
 
                     </Grid>
-            }
-
+                    
+            } 
+            <center> 
+                <a href={'https://disinformationindex.org/research/'} >
+                    <Button style={{ fontFamily: "Courier New" }}> 
+                    Visit GDI's site to see a country-level report... </Button>
+                </a>
+            </center>
+                        
+             <h2 style= {{
+                fontSize: "30px", 
+                fontFamily: "Courier"
+                }}> - Included Interviews - </h2>
+                <p> - Soon to be included.... </p>
+                <footer style = {{ backgroundColor: "#bfd3e6"}}>
+                    <p style = {{ color: "#bfd3e6", fontSize: 15}}> 
+                        page ending background color footer text only added so the footer shows,
+                         so it's given the same font color as the background - not visible on the page, 
+                         proper footer may be added later.
+                    </p>
+                </footer>
         </Container>
     )
 }
