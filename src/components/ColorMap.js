@@ -61,6 +61,11 @@ const ColorMap = ({ allCountries }) => {
     return matchingCountries.map(filtered => Math.trunc(filtered["InternetAccessPercent"]))
   }
 
+  function getLiteracyRate(name){
+    var matchingCounties = getMatchingCountries(name);
+    return matchingCounties.map(filtered => filtered["LitRate"])
+  }
+
   function getCensorshipLevel(name) {
     var matchingCountries = getMatchingCountries(name);
     return 11 - (matchingCountries.map(filtered => Math.trunc(filtered["CensorshipLevel"])))
@@ -109,22 +114,22 @@ const ColorMap = ({ allCountries }) => {
         style={geoJsonStyle}
 
         onEachFeature={(feature, layer) => {
-
-          // popup for onclick
+          // popup info box for onclick
           layer.bindPopup(
             '<h5>' + feature.properties.name + '</h5>' +
             '<p>Civil Discourse Ranking: ' + getRank(feature.properties.name) + '</p>' +
             '<p>Population: ' + numeral(getPopulation(feature.properties.name)).format('0,0') + '</p>' +
             '<p>Internet Access: ' + getInternetPercent(feature.properties.name) + '%</p>' +
               '<p>Online Censorship Level: ' + getCensorshipLevel(feature.properties.name) + '</p>' +
+              '<p>Literacy Rate: '+ getLiteracyRate(feature.properties.name) + '%</p>'+
             //'<p>GDI Average Rating: 79' + '</p>' +
-            '<a href="/search/' + feature.properties.name + '"> Click to View More</a>'
+            '<a href="/search/' + feature.properties.name + '"> Click Here to View More </a>'
           );
 
           layer.on('mouseover', function () {
             this.setStyle({
-              'fillOpacity': 0.5, 
-              color: 'white' //changes country outlines on mouseover
+              'fillOpacity': 0.75, 
+              color: 'blue' //changes country outlines on mouseover
             });
           });
 
